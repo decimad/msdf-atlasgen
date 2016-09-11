@@ -73,12 +73,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)libmsdf\ext;$(SolutionDir)libmsdf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libmsdf\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libmsdf\ext;$(SolutionDir)libmsdf\freetype\include;$(SolutionDir)libmsdf\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libmsdf\lib;$(SolutionDir)libmsdf\freetype;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)libmsdf\ext;$(SolutionDir)libmsdf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libmsdf\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libmsdf\ext;$(SolutionDir)libmsdf\freetype\include;$(SolutionDir)libmsdf\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libmsdf\lib;$(SolutionDir)libmsdf\freetype;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

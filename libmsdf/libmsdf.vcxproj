@@ -110,9 +110,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)ext;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)ext;$(ProjectDir)freetype\include;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)lib\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -121,9 +120,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)ext;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)ext;$(ProjectDir)freetype\include;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
