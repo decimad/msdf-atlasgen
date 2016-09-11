@@ -298,10 +298,10 @@ bool build_atlas( std::vector< char_info >& charinfos, settings& cfg )
 
 void run( FontHandle* font, settings& cfg )
 {
-    size_t highest = cfg.tex_dims.height + 1;
-    std::pair< size_t, size_t > range( 0, cfg.max_char_height );
-
     if( cfg.auto_height ) {
+        size_t highest = cfg.tex_dims.height + 1;
+        std::pair< size_t, size_t > range( 0, cfg.max_char_height );
+
         while( range.first != range.second ) {
             double scaling;
             std::cout << "trying " << range.second << '\n';
