@@ -301,24 +301,26 @@ void run( FontHandle* font, settings& cfg )
     size_t highest = cfg.tex_dims.height + 1;
     std::pair< size_t, size_t > range( 0, cfg.max_char_height );
 
-    while( cfg.auto_height && range.first != range.second ) {
-        double scaling;
-        std::cout << "trying " << range.second << '\n';
-        cfg.max_char_height = range.second;
-        auto charinfos = build_charset( font, cfg, scaling, false );
+    if( cfg.auto_height ) {
+        while( range.first != range.second ) {
+            double scaling;
+            std::cout << "trying " << range.second << '\n';
+            cfg.max_char_height = range.second;
+            auto charinfos = build_charset( font, cfg, scaling, false );
 
-        std::cout << "packing atlas...";
-        if( build_atlas( charinfos, cfg ) ) {
-            range.first = range.second;
-            range.second = min( range.first * 2, highest-1 );
-        } else {
-            highest = min( highest, range.second );
-            range.second = range.first + (range.second-range.first)/2;
+            std::cout << "packing atlas...";
+            if( build_atlas( charinfos, cfg ) ) {
+                range.first = range.second;
+                range.second = min( range.first * 2, highest-1 );
+            } else {
+                highest = min( highest, range.second );
+                range.second = range.first + (range.second-range.first)/2;
+            }
         }
+        cfg.max_char_height = range.first;
     }
 
-    cfg.max_char_height = range.first;
-    std::cout << "using char height " << range.first << ".\n";
+    std::cout << "using char height " << cfg.max_char_height << ".\n";
 
     double scaling;
     std::cout << "building chars...\n";
