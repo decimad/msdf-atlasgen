@@ -39,7 +39,7 @@ T score_bssf( box<T>& a, box<T>& b )
 // http://clb.demon.fi/files/RectangleBinPack.pdf
 // MAX-RECTANGLES-BSSF-BBF GLOBAL
 template< typename T >
-bool bin_pack_max_rect( std::vector< box<T>* >& input, T width, T height )
+bool bin_pack_max_rect( std::vector< box<T>* >& input, T width, T height, T spacing )
 {
     std::vector<box<T>> boxes;
     boxes.reserve( width*height );
@@ -54,7 +54,6 @@ bool bin_pack_max_rect( std::vector< box<T>* >& input, T width, T height )
     while( input.size() ) {
         if( input.size() % 50 == 0 ) {
             std::cout << '.';
-            //std::cout << input.size() << " characters left. (area: " << input.back()->area() << ", boxes: " << boxes.size() << ")\n";
         }
 
         // Find best source-dest pair (GLOBAL)
@@ -89,7 +88,7 @@ bool bin_pack_max_rect( std::vector< box<T>* >& input, T width, T height )
         irect.x_ = drect.x_;
         irect.y_ = drect.y_;
 
-        make_splits( drect, irect, newrects );
+        make_splits( drect, irect, newrects, spacing );
         boxes.erase( boxes.begin() + min_dest );
         size_t size = boxes.size();
 
@@ -99,8 +98,8 @@ bool bin_pack_max_rect( std::vector< box<T>* >& input, T width, T height )
 
         // split all existing overlapping boxes with irect
         for( size_t i = 0; i<size; ) {
-            if( overlap( boxes[i], irect ) ) {
-                make_splits( boxes[i], irect, newrects );
+            if( overlap( boxes[i], irect, spacing ) ) {
+                make_splits( boxes[i], irect, newrects, spacing );
                 boxes.erase( boxes.begin() + i );
 
                 for( auto& box : newrects ) {

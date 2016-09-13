@@ -68,7 +68,7 @@ struct box {
     void scale( T val ) {
         x_ *= val;
         y_ *= val;
-        width_ *= val;
+        width_  *= val;
         height_ *= val;
     }
 
@@ -77,29 +77,29 @@ struct box {
 
 using boxd = box< double >;
 
-bool overlap( const box<size_t>& a, const box<size_t>& b )
+bool overlap( const box<size_t>& a, const box<size_t>& b, size_t spacing )
 {
-    return !(a.right() <= b.left() || b.right() <= a.left() || a.top() <= b.bottom() || b.top() <= a.bottom());
+    return !(a.right() + spacing <= b.left() || b.right() + spacing <= a.left() || a.top() + spacing <= b.bottom() || b.top() + spacing <= a.bottom());
 }
 
-void make_splits( box<size_t> a, box<size_t> b, std::vector< box< size_t > >& result )
+void make_splits( box<size_t> a, box<size_t> b, std::vector< box< size_t > >& result, size_t spacing )
 {
     result.clear();
 
-    if( a.x() < b.x() ) {
-        result.push_back( box< size_t >{ a.x(), a.y(), b.x() - a.x(), a.height() } );
+    if( a.x() + spacing < b.x() ) {
+        result.push_back( box< size_t >{ a.x(), a.y(), b.x() - a.x() - spacing, a.height() } );
     }
 
-    if( a.right() > b.right() ) {
-        result.push_back( box< size_t >{ b.right(), a.bottom(), a.right() - b.right(), a.height() } );
+    if( a.right() > b.right() + spacing ) {
+        result.push_back( box< size_t >{ b.right() + spacing, a.bottom(), a.right() - b.right() - spacing, a.height() } );
     }
 
-    if( a.top() > b.top() ) {
-        result.push_back( box< size_t >{ a.left(), b.top(), a.width(), a.top() - b.top() } );
+    if( a.top() > b.top() + spacing ) {
+        result.push_back( box< size_t >{ a.left(), b.top() + spacing, a.width(), a.top() - b.top() - spacing } );
     }
 
-    if( a.bottom() < b.bottom() ) {
-        result.push_back( box< size_t >{ a.left(), a.bottom(), a.width(), b.bottom() - a.bottom() } );
+    if( a.bottom() + spacing < b.bottom() ) {
+        result.push_back( box< size_t >{ a.left(), a.bottom(), a.width(), b.bottom() - a.bottom() - spacing } );
     }
 }
 
